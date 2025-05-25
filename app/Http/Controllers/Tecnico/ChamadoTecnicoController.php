@@ -28,7 +28,9 @@ class ChamadoTecnicoController extends Controller
 
     public function show(Chamado $chamado)
     {
-        return Inertia::render('Tecnico/Chamados/Show', compact('chamado'));
+        return Inertia::render('Tecnico/Chamados/Show', [
+            'chamado' => $chamado->only('id', 'titulo', 'descricao', 'categoria', 'status', 'responsavel', 'created_at', 'updated_at'),
+        ]);
     }
 
     public function responder(Request $request, Chamado $chamado)
