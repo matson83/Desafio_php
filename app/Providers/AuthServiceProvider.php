@@ -7,11 +7,12 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-     public function boot(): void
-    {
-        $this->registerPolicies();
+public function boot()
+{
+    $this->registerPolicies();
 
-        Gate::define('isColaborador', fn ($user) => $user->role === 'colaborador');
-        Gate::define('isTecnico', fn ($user) => $user->role === 'tecnico');
-    }
+    Gate::define('isColaborador', fn($user) => $user->isColaborador());
+    Gate::define('isTecnico', fn($user) => $user->isTecnico());
+}
+
 }
