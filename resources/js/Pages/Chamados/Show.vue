@@ -1,3 +1,69 @@
 <template>
-    <h3>teset</h3>
+  <AppLayout>
+    <template #header>
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">Vizualizar Chamado</h2>
+    </template>
+
+    <div class="max-w-4xl p-6 mx-auto bg-white border border-gray-200 rounded shadow">
+      <h1 class="mb-4 text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
+
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Título</h2>
+          <p class="text-gray-600">{{ chamado.titulo }}</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Descrição</h2>
+          <p class="text-gray-600">{{ chamado.descricao }}</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Categoria</h2>
+          <p class="text-gray-600">{{ chamado.categoria }}</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Status</h2>
+          <p class="text-gray-600">{{ chamado.status }}</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Responsável pelo Atendimento</h2>
+          <p class="text-gray-600">{{ chamado.responsavel || 'Não atribuído' }}</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Datas</h2>
+          <p class="text-gray-600">Criado em: {{ formatDate(chamado.created_at) }}</p>
+          <p class="text-gray-600">Última atualização: {{ formatDate(chamado.updated_at) }}</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 mt-6">
+        <Link :href="`/chamados/${chamado.id}/edit`" class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600">
+          Editar Chamado
+        </Link>
+        <button
+          @click="destroy"
+          class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+        >
+          Excluir Chamado
+        </button>
+      </div>
+    </div>
+  </AppLayout>
 </template>
+
+<script setup>
+import { Link, router, usePage } from '@inertiajs/vue3'
+import { format } from 'date-fns'
+import AppLayout from '@/Layouts/AppLayout.vue'
+
+const props = defineProps({ chamado: Object })
+
+function formatDate(date) {
+  return format(new Date(date), 'dd/MM/yyyy HH:mm')
+}
+
+function destroy() {
+  if (confirm('Tem certeza que deseja excluir este chamado?')) {
+    router.delete(route('chamados.destroy', props.chamado.id))
+  }
+}
+</script>
