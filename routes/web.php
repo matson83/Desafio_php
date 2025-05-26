@@ -6,28 +6,20 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\Tecnico\ChamadoTecnicoController;
+use App\Http\Controllers\CategoriaController;
+use App\Models\Categoria;
 
 Route::get('/', function () {
+    return redirect('/login');
+});
+
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
-
-Route::get('/', function () {
-    return redirect('/login');
 });
 
 // Todas as rotas autenticadas
@@ -58,4 +50,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('chamados/{chamado}/resposta', [ChamadoTecnicoController::class, 'responder'])->name('chamados.responder');
         Route::patch('chamados/{chamado}/status', [ChamadoTecnicoController::class, 'alterarStatus'])->name('chamados.status');
     });
+
+    /**
+     * Rotas de CATEGORIAS
+     */
+    Route::resource('categorias', CategoriaController::class)->except(['show']);
+
+
+    Route::get('/api/categorias', function () {
+    return Categoria::all();
+});
+
 });

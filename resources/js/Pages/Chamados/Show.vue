@@ -17,8 +17,8 @@
           <p class="text-gray-600">{{ chamado.descricao }}</p>
         </div>
         <div>
-          <h2 class="text-lg font-semibold text-gray-800">Categoria</h2>
-          <p class="text-gray-600">{{ chamado.categoria }}</p>
+            <h2 class="text-lg font-semibold text-gray-800">Categoria</h2>
+            <p class="text-gray-600">{{ chamado.categoria.nome }}</p>
         </div>
         <div>
           <h2 class="text-lg font-semibold text-gray-800">Status</h2>
