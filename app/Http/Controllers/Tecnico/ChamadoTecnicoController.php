@@ -13,17 +13,18 @@ class ChamadoTecnicoController extends Controller
     {
         $query = Chamado::query();
 
-        if ($request->has('status')) {
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-
-        if ($request->has('prioridade')) {
+        if ($request->filled('prioridade')) {
             $query->where('prioridade', $request->prioridade);
         }
 
         $chamados = $query->latest()->get();
 
-        return Inertia::render('Tecnico/Chamados/Index', compact('chamados'));
+        return Inertia::render('Tecnico/Chamados/Index', [
+            'chamados' => $chamados,
+        ]);
     }
 
     public function show(Chamado $chamado)

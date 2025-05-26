@@ -68,6 +68,9 @@ const filters = ref({
 })
 
 function applyFilters() {
-  router.get('/tecnico/chamados', filters, { preserveState: true })
+  router.get('/tecnico/chamados', {
+    status: filters.value.status,
+    prioridade: filters.value.prioridade,
+  }, { preserveState: true })
 }
 </script>
