@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Chamado;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Requests\StoreChamadoRequest;
+use App\Http\Requests\UpdateChamadoRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
-class ChamadoController extends Controller
+class ChamadoController  extends Controller
 {
     public function index()
     {
@@ -20,28 +24,54 @@ class ChamadoController extends Controller
         return Inertia::render('Chamados/Create');
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'titulo' => 'required|string|max:255',
-            'descricao' => 'required',
-            'categoria' => 'required|string',
-            'prioridade' => 'required|in:Baixa,Média,Alta',
-            'anexo' => 'nullable|file|max:2048',
-        ]);
+    public function store(StoreChamadoRequest $request)
+{
+    $data = $request->validated();
 
-        if ($request->hasFile('anexo')) {
-            $data['anexo'] = $request->file('anexo')->store('anexos', 'public');
-        }
-
-        $request->user()->chamados()->create($data);
-
-        return redirect()->route('chamados.index')->with('success', 'Chamado criado com sucesso.');
+    if ($request->hasFile('anexo')) {
+        $data['anexo'] = $request->file('anexo')->store('anexos', 'public');
     }
+
+    $request->user()->chamados()->create($data);
+
+    return redirect()->route('chamados.index')->with('success', 'Chamado criado com sucesso.');
+}
 
     public function show(Chamado $chamado)
     {
         return Inertia::render('Chamados/Show', compact('chamado'));
     }
+
+    public function edit(Chamado $chamado)
+{
+    return Inertia::render('Chamados/Edit', [
+        'chamado' => $chamado->only('id', 'titulo', 'descricao', 'categoria', 'prioridade', 'anexo')
+    ]);
+}
+
+public function update(UpdateChamadoRequest $request, Chamado $chamado)
+{
+    Log::info('Entrou no update');
+
+    $data = $request->validated();
+
+    if ($request->hasFile('anexo')) {
+        $data['anexo'] = $request->file('anexo')->store('anexos', 'public');
+    }
+
+    $updated = $chamado->update($data);
+
+    if ($updated) {
+        return redirect()->route('chamados.show', $chamado)->with('success', 'Chamado atualizado com sucesso.');
+    }
+
+    return back()->with('error', 'Ocorreu um erro ao atualizar o chamado.');
+}
+
+public function destroy(Chamado $chamado)
+{
+    $chamado->delete();
+    return redirect()->route('chamados.index')->with('success', 'Chamado excluído com sucesso.');
+}
 }
 
