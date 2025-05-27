@@ -29,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'perfil',
     ];
 
     /**
@@ -67,12 +68,12 @@ class User extends Authenticatable
 
     public function isColaborador()
     {
-        return $this->role === 'colaborador';
+        return $this->perfil === 'colaborador';
     }
 
     public function isTecnico()
     {
-        return $this->role === 'tecnico';
+        return $this->perfil === 'tecnico';
     }
 
     public function respostas() {
@@ -82,5 +83,10 @@ class User extends Authenticatable
     public function chamados()
     {
         return $this->hasMany(Chamado::class, 'user_id');
+    }
+
+    public function isAtivo()
+    {
+        return $this->ativo;
     }
 }

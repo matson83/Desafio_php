@@ -9,6 +9,14 @@ use Inertia\Inertia;
 
 class ChamadoTecnicoController extends Controller
 {
+    public function __construct()
+    {
+            if (auth()->user()->perfil !== 'tecnico') {
+                abort(403, 'Acesso não autorizado.');
+            }
+
+    }
+
     public function index(Request $request)
     {
         $query = Chamado::query();

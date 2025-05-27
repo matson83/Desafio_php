@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ChamadoController  extends Controller
 {
+    public function __construct()
+    {
+            if (auth()->user()->perfil !== 'colaborador') {
+                abort(403, 'Acesso não autorizado.');
+            }
+
+    }
+
     public function index()
     {
         $chamados = auth()->user()->chamados()->latest()->get();

@@ -44,11 +44,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Rotas do TÉCNICO
      */
-    Route::prefix('tecnico')->name('tecnico.')->group(function () {
+    Route::prefix('tecnico')->name('tecnico.')->middleware(['auth', 'verified'])->group(function () {
         Route::get('chamados', [ChamadoTecnicoController::class, 'index'])->name('chamados.index');
         Route::get('chamados/{chamado}', [ChamadoTecnicoController::class, 'show'])->name('chamados.show');
         Route::post('chamados/{chamado}/resposta', [ChamadoTecnicoController::class, 'responder'])->name('chamados.responder');
         Route::patch('chamados/{chamado}/status', [ChamadoTecnicoController::class, 'alterarStatus'])->name('chamados.status');
+        Route::get('usuarios', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'index'])->name('usuarios.index');
+        Route::patch('usuarios/{user}/toggle', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'toggleAtivo'])->name('usuarios.toggle');
+        Route::patch('usuarios/{user}/perfil', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'alterarPerfil'])->name('usuarios.perfil');
     });
 
     /**

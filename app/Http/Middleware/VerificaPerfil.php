@@ -14,10 +14,10 @@ class VerificaPerfil
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, $perfil)
+    public function handle($request, Closure $next)
     {
-        if (auth()->user()->role !== $perfil) {
-            abort(403, 'Acesso não autorizado.');
+        if (auth()->user()->perfil !== 'tecnico') {
+            abort(403, 'Acesso restrito.');
         }
 
         return $next($request);
