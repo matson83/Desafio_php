@@ -6,7 +6,7 @@
       </h2>
     </template>
 
-  <div class="max-w-3xl p-6 mx-auto bg-white rounded shadow">
+  <div class="max-w-3xl p-6 mx-auto mt-2 bg-white rounded shadow">
     <h1 class="mb-6 text-2xl font-bold text-gray-800">Abrir Novo Chamado</h1>
 
     <form @submit.prevent="submit" class="space-y-5">

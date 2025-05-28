@@ -1,8 +1,15 @@
 <template>
-  <div class="max-w-2xl p-6 mx-auto bg-white rounded shadow">
+    <AppLayout>
+        <template #header>
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">
+        Chamados Técnicos
+      </h2>
+    </template>
+
+    <div class="max-w-2xl p-6 mx-auto mt-2 bg-white rounded shadow">
     <h1 class="mb-4 text-2xl font-bold">Categorias</h1>
 
-    <!-- Formulário de adicionar categoria -->
+
     <form @submit.prevent="addCategoria" class="flex gap-2 mb-6">
       <input
         v-model="form.nome"
@@ -14,7 +21,7 @@
       </button>
     </form>
 
-    <!-- Lista de categorias -->
+
     <ul>
       <li
         v-for="cat in categorias"
@@ -59,12 +66,14 @@
       Voltar aos Chamados
     </button>
   </div>
+    </AppLayout>
 </template>
 
 <script setup>
 import { useForm, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import { usePage } from '@inertiajs/vue3'
+import AppLayout from '@/Layouts/AppLayout.vue'
 
 const props = defineProps({
   categorias: Array

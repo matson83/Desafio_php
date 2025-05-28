@@ -52,6 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('usuarios', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'index'])->name('usuarios.index');
         Route::patch('usuarios/{user}/toggle', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'toggleAtivo'])->name('usuarios.toggle');
         Route::patch('usuarios/{user}/perfil', [\App\Http\Controllers\Tecnico\UsuarioController::class, 'alterarPerfil'])->name('usuarios.perfil');
+        Route::get('chamados/export/excel', [ChamadoTecnicoController::class, 'exportExcel'])->name('chamados.export.excel');
+    Route::get('chamados/export/pdf', [ChamadoTecnicoController::class, 'exportPdf'])->name('chamados.export.pdf');
     });
 
     /**

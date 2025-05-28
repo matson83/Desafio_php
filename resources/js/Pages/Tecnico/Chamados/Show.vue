@@ -1,5 +1,11 @@
 <template>
-  <div class="max-w-4xl p-6 mx-auto bg-white border border-gray-200 rounded shadow">
+<AppLayout>
+<template #header>
+      <h2 class="text-xl font-semibold leading-tight text-gray-800">
+        Chamados Técnicos
+      </h2>
+    </template>
+<div class="max-w-4xl p-6 mx-auto mt-2 bg-white border border-gray-200 rounded shadow">
     <h1 class="mb-4 text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
 
     <div class="space-y-4">
@@ -39,9 +45,11 @@
       <Link href="/tecnico/chamados" class="text-blue-600 hover:underline">Voltar para a lista de chamados</Link>
     </div>
   </div>
+</AppLayout>
 </template>
 
 <script setup>
+import AppLayout from '@/Layouts/AppLayout.vue'
 import { Link } from '@inertiajs/vue3'
 import { format } from 'date-fns'
 

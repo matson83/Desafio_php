@@ -4,7 +4,7 @@
       <h2 class="text-xl font-semibold leading-tight text-gray-800">Editar Chamado</h2>
     </template>
 
-    <div class="max-w-2xl p-6 mx-auto bg-white rounded shadow">
+    <div class="max-w-2xl p-6 mx-auto mt-2 bg-white rounded shadow">
       <form @submit.prevent="submit" enctype="multipart/form-data">
         <div v-if="form.errors.error" class="p-4 mb-4 text-red-700 bg-red-100 rounded">
   {{ form.errors.error }}

@@ -6,7 +6,7 @@
       </h2>
     </template>
 
-    <div class="max-w-5xl p-6 mx-auto">
+    <div class="max-w-5xl p-6 mx-auto mt-2">
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Meus Chamados</h1>
         <Link href="/chamados/create" class="px-4 py-2 text-white bg-blue-600 rounded shadow hover:bg-blue-700">
@@ -27,8 +27,8 @@
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-lg font-semibold text-gray-800">{{ chamado.titulo }}</h2>
-              <p class="text-sm text-gray-500">
-                Categoria: {{ chamado.categoria }} | Prioridade: {{ chamado.prioridade }}
+              <p class="mt-1 text-sm text-gray-500">
+                Categoria: {{ chamado.categoria?.nome ?? 'Sem categoria' }} | Prioridade: {{ chamado.prioridade }}
               </p>
               <p class="mt-1 text-sm font-medium">
                 Status: <span class="text-blue-600">{{ chamado.status }}</span>

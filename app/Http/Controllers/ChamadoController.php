@@ -23,7 +23,11 @@ class ChamadoController  extends Controller
 
     public function index()
     {
-        $chamados = auth()->user()->chamados()->latest()->get();
+        $chamados = auth()->user()
+            ->chamados()
+            ->with('categoria') // Carrega o relacionamento
+            ->latest()
+            ->get();
 
         return Inertia::render('Chamados/Index', compact('chamados'));
     }
